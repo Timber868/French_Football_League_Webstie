@@ -1,6 +1,3 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import HomePage from "./Pages/HomePage/HomePage";
@@ -10,6 +7,8 @@ import PlayerStatsPage from "./Pages/PlayerStatsPage/PlayerStats";
 import TeamPerformancePage from "./Pages/TeamPerformancesPage/TeamPerformancePage";
 import UpcomingGamesPage from "./Pages/UpcomingGamesPage/UpcomingGames";
 import NavBar from "./Pages/Components/NavBar/NavBar";
+
+import "./App.scss";
 
 export default function App() {
   return (

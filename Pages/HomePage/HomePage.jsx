@@ -1,17 +1,18 @@
 import DomesticSection from "../Components/BuildingBlocs/DomesticSections";
+import "./HomePage.scss"
 
 export default function HomePage() {
     return (
     <div className="home-page">
          <div>
       {/* Introduction */}
-      <header>
+      <header className="home-header">
         <h1>Welcome to the Ligue 1 Website</h1>
         <p>Your go-to source for Ligue 1 standings, top players, and more!</p>
       </header>
 
       {/* Quick Stats Overview */}
-      <section>
+      <section className="home-standings">
         <h2>League Standings (Top 5)</h2>
         <ul>
           <li>1. PSG - 45 points</li>
@@ -22,7 +23,7 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section>
+      <section className="home-scorers">
         <h2>Top Scorers</h2>
         <ul>
           <li>Kylian Mbappé - 20 goals</li>
@@ -31,7 +32,7 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section>
+      <section className="home-league-games">
         <h2>Upcoming League Games</h2>
         <ul>
           <li>PSG vs Olympique Lyonnais - 2024-09-15</li>
@@ -40,7 +41,7 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section>
+      <section className="home-european-games">
         <h2>Upcoming European Games</h2>
         <ul>
           <li>PSG vs Olympique Lyonnais - 2024-09-15</li>
@@ -51,5 +52,6 @@ export default function HomePage() {
 
     </div>
     </div>
+    
     );
 }
