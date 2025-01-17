@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"log"
 
 	"github.com/Timber868/french-league/cmd/api"
@@ -23,10 +24,23 @@ func main() {
 		ParseTime:            true,  //Date columns wont be left as string but as Time.time instead
 	})
 
+	//Inititalize the database with our configuration
+	initStorage(db)
+
 	//Initialize the api server without our own custom method
 	server := api.NewApiServer(serverAddress, db)
 
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
 	}
+}
+
+// Function to actually initialize the database the rest does nothing
+func initStorage(db *sql.DB) {
+	//Starts the database connection and checks if everything is alright
+	if err := db.Ping(); err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("DB: Successfully connected!")
 }
