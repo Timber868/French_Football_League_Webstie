@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Timber868/french-league/service/auth"
 	"github.com/Timber868/french-league/types"
 	"github.com/Timber868/french-league/utils"
 	"github.com/gorilla/mux"
@@ -45,11 +46,18 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//Hash the password for security reasons
+	hashedPassword, err := auth.HashPassword(payload.Password)
+	if err != nil {
+		utils.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
 	//If not then you can register the user
 	err = h.store.CreateUser(types.User{
 		FirstName: payload.FirstName,
 		LastName:  payload.LastName,
-		Password:  payload.Password,
+		Password:  hashedPassword,
 		Email:     payload.Email,
 	})
 
