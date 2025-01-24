@@ -3,6 +3,7 @@ package user
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -17,11 +18,15 @@ func TestUserServiceHandlers(t *testing.T) {
 	handler := NewHandler(userStore)
 
 	t.Run("Invalid payload", func(t *testing.T) {
+		/*
+			Test with an invalid email section of the payload. Should fail with a bad request
+		*/
+
 		payload := types.RegisterUserPayload{
 			FirstName: "user",
 			LastName:  "lastName",
-			Email:     "",
 			Password:  "asd",
+			Email:     "sad",
 		}
 
 		//Youve got to marshal your struct into a json
@@ -46,13 +51,15 @@ func TestUserServiceHandlers(t *testing.T) {
 			t.Errorf("expected status code %d, got %d", http.StatusBadRequest, requestAgainstHandler.Code)
 		}
 	})
+
+	t.Run("Should correctly register the user", func(t *testing.T) {})
 }
 
 type mockUserStore struct{}
 
 // Methods needed for a user store need to be mocked
 func (s *mockUserStore) GetUserByEmail(email string) (*types.User, error) {
-	return nil, nil
+	return nil, fmt.Errorf("email not found") //This needs to be mocked to isolate our handleRegister method
 }
 
 func (s *mockUserStore) GetUserByID(id int) (*types.User, error) {
