@@ -14,7 +14,7 @@ import (
 const serverAddress string = ":8080"
 
 func main() {
-	db, _ := db.NewMySQLStorage(mysql.Config{
+	db, err := db.NewMySQLStorage(mysql.Config{
 		User:                 config.Envs.DBUser,
 		Passwd:               config.Envs.DBPassword,
 		Addr:                 config.Envs.DBAddress,
@@ -23,6 +23,10 @@ func main() {
 		AllowNativePasswords: true,  //Allows the use of MySQL’s native password authentication method. This is often needed with more recent versions of MySQL.
 		ParseTime:            true,  //Date columns wont be left as string but as Time.time instead
 	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	//Inititalize the database with our configuration
 	initStorage(db)
